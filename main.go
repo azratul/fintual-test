@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -14,8 +15,19 @@ const layout = "2006-01-02T15:04:05.000Z"
 var portfolio Portfolio
 var debug bool
 var stocks []Stock
+var startDate *string
+var endDate *string
 
 func init() {
+	startDate = flag.String("start", "2020-01-01", "Start date")
+	endDate = flag.String("end", "2021-01-01", "End date")
+	flag.Parse()
+
+	if *startDate == "" || *endDate == "" {
+		*startDate = "2020-01-01"
+		*endDate = "2021-01-01"
+	}
+
 	if os.Getenv("POPULATE") == "true" {
 		populate("2020-01-01T00:00:00.000Z", "2022-04-30T00:00:00.000Z")
 	}
@@ -44,8 +56,10 @@ func init() {
 
 func main() {
 	t1 := time.Now()
-	start, _ := time.Parse(layout, "2020-01-01T00:00:00.000Z")
-	end, _ := time.Parse(layout, "2021-01-01T00:00:00.000Z")
+	sd := fmt.Sprintf("%sT00:00:00.000Z", *startDate)
+	ed := fmt.Sprintf("%sT00:00:00.000Z", *endDate)
+	start, _ := time.Parse(layout, sd)
+	end, _ := time.Parse(layout, ed)
 
 	profit, ar := portfolio.Profit(start, end)
 

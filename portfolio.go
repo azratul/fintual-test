@@ -50,6 +50,10 @@ func (p *Portfolio) Profit(start, end time.Time) (float64, float64) {
 
 // GetPrice : Return the price of a stock
 func (s *Stock) GetPrice(date time.Time) float64 {
+	if debug {
+		log.Println("GetPrice:", s.Name, date.Format("2006-01-02"))
+	}
+
 	for _, stock := range stocks {
 		if stock.Name == s.Name &&
 			stock.Date == date.Format("2006-01-02") {
