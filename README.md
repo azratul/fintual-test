@@ -25,6 +25,23 @@ go run *.go
 
 ```
 
+4. Help!!! You can run the program with your own dates
+
+
+```bash
+go run *.go -h
+
+```
+
+Example
+
+
+```bash
+go run *.go -start "2021-03-03" -end "2022-01-25"
+
+```
+
+
 # Options
 
 You can run the program with some basics options, Ex:
