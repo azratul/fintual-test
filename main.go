@@ -23,11 +23,6 @@ func init() {
 	endDate = flag.String("end", "2021-01-01", "End date")
 	flag.Parse()
 
-	if *startDate == "" || *endDate == "" {
-		*startDate = "2020-01-01"
-		*endDate = "2021-01-01"
-	}
-
 	if os.Getenv("POPULATE") == "true" {
 		populate("2020-01-01T00:00:00.000Z", "2022-04-30T00:00:00.000Z")
 	}
